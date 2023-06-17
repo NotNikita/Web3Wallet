@@ -13,9 +13,12 @@ function App() {
   const [network, setNetwork] = useState<string>("Ethereum Mainnet");
 
   const onGetBalanceClick = () => {
+    if (!address) return;
     getBalance(address, network).then((res?: string) => {
       if (res) {
         setBalance(res);
+      } else {
+        setBalance("");
       }
     });
   };
@@ -44,7 +47,7 @@ function App() {
         />
         {balance && (
           <p>
-            Баланс кошелька {address}: {balance} {getTokenNameByNetwork()}
+            Wallet balance {address}: {balance} {getTokenNameByNetwork()}
           </p>
         )}
         <button className="button" onClick={onGetBalanceClick}>

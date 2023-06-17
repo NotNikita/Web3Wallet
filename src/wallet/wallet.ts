@@ -11,7 +11,11 @@ const setSelectedWeb3 = (web3Name: string = "Ethereum Mainnet"): void => {
 export async function getBalance(address: string, networkName: string) {
   setSelectedWeb3(networkName);
   if (web3) {
-    const balance = await web3.eth.getBalance(address);
-    return web3.utils.fromWei(balance, "ether");
+    try {
+      const balance = await web3.eth.getBalance(address);
+      return web3.utils.fromWei(balance, "ether");
+    } catch (e) {
+      return undefined;
+    }
   }
 }
